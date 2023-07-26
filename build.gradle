@@ -47,6 +47,7 @@ android {
         versionCode 1
         versionName VERSION
         buildConfigField 'String', 'VERSION_NAME', "\"${versionName}\""
+        archivesBaseName("${libraryName}_${versionName}")
     }
 
     buildFeatures {
