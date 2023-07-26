@@ -321,6 +321,20 @@ public class PdfiumCore {
         }
     }
 
+    /**
+     * Releases the native resources for a specific page of the document.
+     * You need to use this function to release memory space in time when opening large files.
+     */
+    public void closePage(PdfDocument doc, int pageIndex) {
+        synchronized (lock) {
+            if (doc.mNativePagesPtr.containsKey(pageIndex)) {
+                long pagePtr = doc.mNativePagesPtr.get(pageIndex);
+                nativeClosePage(pagePtr);
+                doc.mNativePagesPtr.remove(pageIndex);
+            }
+        }
+    }
+
     /** Release native resources and opened file */
     public void closeDocument(PdfDocument doc) {
         synchronized (lock) {
